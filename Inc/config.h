@@ -287,7 +287,7 @@
 
   // #define DUAL_INPUTS                     //  ADC*(Primary) + UART(Auxiliary). Uncomment this to use Dual-inputs
   #define PRI_INPUT1            1, 0, 0, 4095, 0      // TYPE, MIN, MID, MAX, DEADBAND. See INPUT FORMAT section
-  #define PRI_INPUT2            1, -4095, 0, 4095, 0      // TYPE, MIN, MID, MAX, DEADBAND. See INPUT FORMAT section
+  #define PRI_INPUT2            1, 0, 0, 4095, 0      // TYPE, MIN, MID, MAX, DEADBAND. See INPUT FORMAT section
   #ifdef DUAL_INPUTS
   #define FLASH_WRITE_KEY     0x1101    // Flash memory writing key. Change this key to ignore the input calibrations from the flash memory and use the ones in config.h
   // #define SIDEBOARD_SERIAL_USART3 1
@@ -304,6 +304,26 @@
   // #define ADC_ALTERNATE_CONNECT           // use to swap ADC inputs
   // #define SUPPORT_BUTTONS_LEFT            // use left sensor board cable for button inputs.  Disable DEBUG_SERIAL_USART2!
   // #define SUPPORT_BUTTONS_RIGHT           // use right sensor board cable for button inputs. Disable DEBUG_SERIAL_USART3!
+  #define MULTI_MODE_DRIVE                  // This option enables the selection of 3 driving modes at start-up using combinations of Brake and Throttle pedals (see below)
+  #ifdef MULTI_MODE_DRIVE
+      // BEGINNER MODE:     Power ON + Brake [released] + Throttle [released or pressed]
+      #define MULTI_MODE_DRIVE_M1_MAX   300
+      #define MULTI_MODE_DRIVE_M1_RATE  250
+      #define MULTI_MODE_M1_I_MOT_MAX   4
+      #define MULTI_MODE_M1_N_MOT_MAX   N_MOT_MAX
+
+      // INTERMEDIATE MODE: Power ON + Brake [pressed] + Throttle [released]
+      #define MULTI_MODE_DRIVE_M2_MAX   500
+      #define MULTI_MODE_DRIVE_M2_RATE  300
+      #define MULTI_MODE_M2_I_MOT_MAX   8
+      #define MULTI_MODE_M2_N_MOT_MAX   N_MOT_MAX
+
+      // ADVANCED MODE:    Power ON + Brake [pressed] + Throttle [pressed]
+      #define MULTI_MODE_DRIVE_M3_MAX   1000
+      #define MULTI_MODE_DRIVE_M3_RATE  450
+      #define MULTI_MODE_M3_I_MOT_MAX   I_MOT_MAX
+      #define MULTI_MODE_M3_N_MOT_MAX   N_MOT_MAX
+  #endif
 #endif
 // ############################# END OF VARIANT_ADC SETTINGS #########################
 
@@ -525,7 +545,7 @@
   // #define ELECTRIC_BRAKE_MAX    100         // (0, 500) Maximum electric brake to be applied when input torque request is 0 (pedal fully released).
   // #define ELECTRIC_BRAKE_THRES  120         // (0, 500) Threshold below at which the electric brake starts engaging.
 
-  //#define MULTI_MODE_DRIVE                  // This option enables the selection of 3 driving modes at start-up using combinations of Brake and Throttle pedals (see below)
+  #define MULTI_MODE_DRIVE                  // This option enables the selection of 3 driving modes at start-up using combinations of Brake and Throttle pedals (see below)
   #ifdef MULTI_MODE_DRIVE
       // BEGINNER MODE:     Power ON + Brake [released] + Throttle [released or pressed]
       #define MULTI_MODE_DRIVE_M1_MAX   300
